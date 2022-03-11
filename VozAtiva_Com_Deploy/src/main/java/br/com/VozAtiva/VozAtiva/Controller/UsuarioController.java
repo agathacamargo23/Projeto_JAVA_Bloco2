@@ -6,19 +6,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import br.com.VozAtiva.VozAtiva.Repository.UsuarioRepository;
 import br.com.VozAtiva.VozAtiva.Service.UsuarioService;
 import br.com.VozAtiva.VozAtiva.model.UsuarioLogin;
 import br.com.VozAtiva.VozAtiva.model.UsuarioModel;
-
-@Controller
+  
+@RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
@@ -30,15 +30,16 @@ public class UsuarioController {
 	private UsuarioRepository usuarioRepository;
 
 	@PostMapping("/logar")
-	public ResponseEntity<UsuarioLogin> Autentication(@RequestBody Optional<UsuarioLogin> usuario) {
+	public ResponseEntity<UsuarioLogin> Logar(@RequestBody Optional<UsuarioLogin> usuario) {
 		return usuarioService.Logar(usuario).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 
 	}
 
 	@PostMapping("/cadastrar")
-	public ResponseEntity<UsuarioModel> Post(@RequestBody UsuarioModel usuario){
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.CadastroUsuario(usuario));
+	public ResponseEntity<UsuarioModel> CadastroUsuario(@RequestBody UsuarioModel usuario){
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(usuarioService.CadastroUsuario(usuario));
 	}
 
 	@GetMapping("/all")

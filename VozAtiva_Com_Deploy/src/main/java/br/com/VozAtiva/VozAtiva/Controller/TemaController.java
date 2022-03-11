@@ -39,9 +39,9 @@ public class TemaController {
 
 	}
 
-	@GetMapping("tipo/{tipo}")
-	public ResponseEntity<List<TemaModel>> getByTipo(@PathVariable String tipo) {
-		return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(tipo));
+	@GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<TemaModel>> getByTipo(@PathVariable String tipo) {
+        return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(tipo));
 
 	}
 
