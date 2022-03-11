@@ -40,8 +40,8 @@ public class TemaController {
 	}
 
 	@GetMapping("tipo/{tipo}")
-	public ResponseEntity<TemaModel> getByTipo(@PathVariable long id) {
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	public ResponseEntity<List<TemaModel>> getByTipo(@PathVariable String tipo) {
+		return ResponseEntity.ok(repository.findAllByTipoContainingIgnoreCase(tipo));
 
 	}
 
